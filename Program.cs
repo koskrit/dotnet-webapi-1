@@ -1,13 +1,8 @@
+using Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-var Services = builder.Services;
-
-Services.AddDbContext<ApiDbContext>();
-
-Services.AddControllers();
-
-Services.AddEndpointsApiExplorer();
-Services.AddSwaggerGen();
+builder.Services.AddServices();
 
 var app = builder.Build();
 
