@@ -5,9 +5,16 @@ namespace Services
 {
     public static class ServicesSetup
     {
-        public static void AddServices(this IServiceCollection services)
+        public static void AddServices(
+            this IServiceCollection services,
+            IConfiguration configuration
+        )
         {
             services.AddDbContext<ApiDbContext>();
+
+            var identityServerSettings = configuration
+                .GetSection("IdentityServer")
+                .Get<IdentityServerSettings>();
 
             services
                 .AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
@@ -15,8 +22,8 @@ namespace Services
                     "Bearer",
                     options =>
                     {
-                        options.Authority = "https://localhost:4242";
-                        options.Audience = "projects-api";
+                        options.Authority = identityServerSettings.Authority;
+                        options.Audience = identityServerSettings.Audience;
                         options.RequireHttpsMetadata = false;
 
                         options.TokenValidationParameters = new TokenValidationParameters()
