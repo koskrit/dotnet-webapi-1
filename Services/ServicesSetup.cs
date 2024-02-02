@@ -37,6 +37,18 @@ namespace Services
                 );
             });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    "ApiScope",
+                    policy =>
+                    {
+                        policy.RequireAuthenticatedUser();
+                        policy.RequireClaim("scope", "api1");
+                    }
+                );
+            });
+
             services.AddControllers();
 
             services.AddEndpointsApiExplorer();
