@@ -6,6 +6,8 @@ builder.Services.AddServices(builder.Configuration);
 
 var app = builder.Build();
 
+app.UseCors("CorsPolicy");
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
