@@ -3,10 +3,19 @@ using Models;
 
 public class ApiDbContext : DbContext
 {
+    private readonly IConfiguration _configuration;
+
+    public ApiDbContext(IConfiguration configuration)
+        : base()
+    {
+        _configuration = configuration;
+    }
+
     public virtual DbSet<Note> Notes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseInMemoryDatabase("MyDatabase");
+        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+        optionsBuilder.UseNpgsql(connectionString);
     }
 }
