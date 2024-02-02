@@ -1,6 +1,11 @@
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+var Services = builder.Services;
+
+Services.AddDbContext<ApiDbContext>();
+
+Services.AddEndpointsApiExplorer();
+Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -11,4 +16,3 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
