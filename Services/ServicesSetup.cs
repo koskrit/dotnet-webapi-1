@@ -36,10 +36,18 @@ namespace Services
             services.AddCors(options =>
             {
                 options.AddPolicy(
-                    "AllowAllOrigins",
-                    policy =>
+                    "CorsPolicy",
+                    corsBuilder =>
                     {
-                        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                        var allowedOrigins = configuration
+                            .GetSection("AllowedOrigins")
+                            .Get<List<string>>();
+
+                        corsBuilder
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .SetIsOriginAllowed(origin => allowedOrigins.Contains(origin))
+                            .AllowCredentials();
                     }
                 );
             });
