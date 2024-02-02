@@ -57,7 +57,7 @@ namespace Controllers
             if (existingNote == null)
                 return NotFound("Couldn't Find Note specified");
 
-            existingNote.UpdatedAt = DateTime.Now;
+            existingNote.UpdatedAt = DateTime.UtcNow;
             existingNote.Title = noteDTO.Title;
             existingNote.HtmlContent = noteDTO.HtmlContent;
 
