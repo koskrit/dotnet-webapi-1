@@ -6,6 +6,17 @@ namespace Services
         {
             services.AddDbContext<ApiDbContext>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    "AllowAllOrigins",
+                    policy =>
+                    {
+                        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                    }
+                );
+            });
+
             services.AddControllers();
 
             services.AddEndpointsApiExplorer();
