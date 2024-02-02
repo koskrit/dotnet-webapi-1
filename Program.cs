@@ -4,6 +4,8 @@ var Services = builder.Services;
 
 Services.AddDbContext<ApiDbContext>();
 
+Services.AddControllers();
+
 Services.AddEndpointsApiExplorer();
 Services.AddSwaggerGen();
 
@@ -14,5 +16,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.MapControllers();
 
 app.UseHttpsRedirection();
+
+app.Run();
