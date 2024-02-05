@@ -29,12 +29,8 @@ namespace Services
                     {
                         options.Authority = identityServerSettings.Authority;
                         options.Audience = identityServerSettings.Audience;
-                        options.RequireHttpsMetadata = false;
 
-                        options.TokenValidationParameters = new TokenValidationParameters()
-                        {
-                            ValidateAudience = false
-                        };
+                        options.TokenValidationParameters = new TokenValidationParameters() { };
                     }
                 );
 
