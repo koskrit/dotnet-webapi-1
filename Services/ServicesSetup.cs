@@ -1,4 +1,5 @@
 using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Services
@@ -11,6 +12,10 @@ namespace Services
         )
         {
             services.AddDbContext<ApiDbContext>();
+            services
+                .AddDataProtection()
+                .PersistKeysToDbContext<ApiDbContext>()
+                .SetApplicationName("IdentityServer");
 
             var identityServerSettings = configuration
                 .GetSection("IdentityServer")

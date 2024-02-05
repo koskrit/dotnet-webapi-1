@@ -1,7 +1,8 @@
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Models;
 
-public class ApiDbContext : DbContext
+public class ApiDbContext : DbContext, IDataProtectionKeyContext
 {
     private readonly IConfiguration _configuration;
 
@@ -18,4 +19,6 @@ public class ApiDbContext : DbContext
         var connectionString = _configuration.GetConnectionString("DefaultConnection");
         optionsBuilder.UseNpgsql(connectionString);
     }
+
+    public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 }
